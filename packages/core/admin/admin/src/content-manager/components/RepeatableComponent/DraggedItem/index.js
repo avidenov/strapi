@@ -21,6 +21,7 @@ import Preview from './Preview';
 import DraggingSibling from './DraggingSibling';
 import { CustomIconButton } from './IconButtonCustoms';
 import { connect, select } from './utils';
+import DynamicZone from '../../DynamicZone';
 
 const DragButton = styled.span`
   display: flex;
@@ -244,6 +245,7 @@ const DraggedItem = ({
                   <Grid gap={4} key={key}>
                     {fieldRow.map(({ name, fieldSchema, metadatas, queryInfos, size }) => {
                       const isComponent = fieldSchema.type === 'component';
+                      const isDynamicZone = fieldSchema.type === 'dynamiczone';
                       const keys = `${componentFieldName}.${name}`;
 
                       if (isComponent) {
@@ -265,6 +267,18 @@ const DraggedItem = ({
                               required={fieldSchema.required}
                             />
                           </GridItem>
+                        );
+                      }
+
+                      if (isDynamicZone) {
+                        return (
+                          <div key={name} className={`col-${size}`}>
+                            <DynamicZone
+                              name={keys}
+                              fieldSchema={fieldSchema}
+                              metadatas={metadatas}
+                            />
+                          </div>
                         );
                       }
 
