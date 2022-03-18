@@ -1,4 +1,5 @@
 {
+  "version": "4.1.4",
   "name": "strapi",
   "private": true,
   "bugs": {
